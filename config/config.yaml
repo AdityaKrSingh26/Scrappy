@@ -1,0 +1,62 @@
+# List of websites to scrape for internship opportunities
+websites:
+  - url: "https://internship-site-1.com"
+    selectors:
+      job_title: ".job-title"
+      company_name: ".company-name"
+      location: ".location"
+      apply_link: ".apply-link"
+      description: ".description"
+  - url: "https://internship-site-2.com"
+    selectors:
+      job_title: ".title"
+      company_name: ".employer"
+      location: ".city"
+      apply_link: ".link"
+      description: ".job-desc"
+
+# Scraping settings
+scraping:
+  # The frequency of scraping in cron format (e.g., "0 0 * * *" for daily scraping at midnight)
+  schedule: "0 0 * * *"
+  # Number of concurrent scraping tasks
+  concurrency: 5
+  # Timeout in seconds for each scraping task
+  timeout: 30
+
+# Output settings
+output:
+  # Format of the output file: csv or json
+  format: "csv"
+  # Directory where the output files will be saved
+  directory: "output"
+  # File name pattern for saving the scraped data (e.g., internships-YYYY-MM-DD.csv)
+  filename_pattern: "internships-{{date}}.csv"
+
+# Logging settings
+logging:
+  # Log level (e.g., debug, info, warn, error)
+  level: "info"
+  # Path to the log file
+  file: "logs/scrappy.log"
+
+# Database settings (if storing data in a database instead of CSV/JSON)
+database:
+  enabled: false
+  type: "mongodb" # Supported types: mongodb, mysql
+  connection_string: "mongodb://localhost:27017/scrappy"
+  collection_name: "internships"
+
+# Notification settings (e.g., send updates on successful scraping)
+notifications:
+  enabled: false
+  email:
+    smtp_server: "smtp.example.com"
+    port: 587
+    sender_email: "your-email@example.com"
+    recipient_email: "recipient@example.com"
+    username: "your-email@example.com"
+    password: "your-email-password"
+
+# Environment-specific settings
+environment: "development" # Options: development, production
