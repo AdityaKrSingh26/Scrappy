@@ -11,8 +11,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// cronCmd represents the cron command
-var cronCmd = &cobra.Command{
+// CronCmd represents the cron command (exported)
+var CronCmd = &cobra.Command{
 	Use:   "cron",
 	Short: "Starts the scraping process on a scheduled basis",
 	Long:  `This command sets up a cron job to execute the scraping process at regular intervals defined in the config file.`,
@@ -35,7 +35,6 @@ func startCron() {
 	// Add the scraping job with the schedule from the config file
 	_, err = c.AddFunc(cfg.Scraping.Schedule, func() {
 		fmt.Printf("Starting scraping job at %s...\n", time.Now().Format(time.RFC3339))
-		// Use the new FileName field for output
 		if err := scraper.ScrapeInternships(cfg.Scraping.URL, cfg.Scraping.Format, cfg.Output.FilenamePattern); err != nil {
 			log.Printf("Error during scraping: %s\n", err)
 		} else {
@@ -52,9 +51,4 @@ func startCron() {
 
 	// Keep the cron job running indefinitely
 	select {}
-}
-
-func init() {
-	// Register the cron command with the root command
-	rootCmd.AddCommand(cronCmd)
 }

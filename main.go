@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/AdityaKrSingh26/Scrappy/cmd"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -20,59 +21,7 @@ type Config struct {
 	Environment   string             `mapstructure:"environment"`
 }
 
-// WebsiteConfig holds the configuration for each website
-type WebsiteConfig struct {
-	URL       string            `mapstructure:"url"`
-	Selectors map[string]string `mapstructure:"selectors"`
-}
-
-// ScrapingConfig holds scraping-related settings
-type ScrapingConfig struct {
-	Schedule    string `mapstructure:"schedule"`
-	Concurrency int    `mapstructure:"concurrency"`
-	Timeout     int    `mapstructure:"timeout"`
-}
-
-// OutputConfig holds output-related settings
-type OutputConfig struct {
-	Format          string `mapstructure:"format"`
-	Directory       string `mapstructure:"directory"`
-	FilenamePattern string `mapstructure:"filename_pattern"`
-}
-
-// LoggingConfig holds logging-related settings
-type LoggingConfig struct {
-	Level string `mapstructure:"level"`
-	File  string `mapstructure:"file"`
-}
-
-// DatabaseConfig holds database-related settings
-type DatabaseConfig struct {
-	Enabled          bool   `mapstructure:"enabled"`
-	Type             string `mapstructure:"type"`
-	ConnectionString string `mapstructure:"connection_string"`
-	CollectionName   string `mapstructure:"collection_name"`
-}
-
-// NotificationConfig holds notification-related settings
-type NotificationConfig struct {
-	Enabled bool        `mapstructure:"enabled"`
-	Email   EmailConfig `mapstructure:"email"`
-}
-
-// EmailConfig holds email notification settings
-type EmailConfig struct {
-	SMTPServer     string `mapstructure:"smtp_server"`
-	Port           int    `mapstructure:"port"`
-	SenderEmail    string `mapstructure:"sender_email"`
-	RecipientEmail string `mapstructure:"recipient_email"`
-	Username       string `mapstructure:"username"`
-	Password       string `mapstructure:"password"`
-}
-
-var config Config
-
-// loadConfig loads the configuration from config.yaml
+// Load configuration from the config.yaml file
 func loadConfig() {
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
@@ -95,24 +44,18 @@ func main() {
 	var rootCmd = &cobra.Command{
 		Use:   "scrappy",
 		Short: "Scrappy is a command-line tool for scraping internship opportunities.",
-		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Starting the scraping process...")
-			// Here, you would start the scraping logic
-			startScraping()
+		RunE: func(cmd *cobra.Command, args []string) error {
+			fmt.Println("Starting the scraping process manually...")
+			return cmd.RunScrapeCommand()
 		},
 	}
+
+	// Add the cron command to root
+	rootCmd.AddCommand(cmd.CronCmd)
 
 	// Execute the root command
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error executing command: %s\n", err)
 		os.Exit(1)
-	}
-}
-
-// startScraping implements the scraping logic
-func startScraping() {
-	for _, website := range config.Websites {
-		fmt.Printf("Scraping website: %s\n", website.URL)
-		// Here you would implement the scraping logic using Colly
 	}
 }
