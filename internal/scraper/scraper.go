@@ -7,7 +7,7 @@ import (
 )
 
 // ScrapeInternships starts the scraping process for internship opportunities
-func ScrapeInternships(url string, format string, fileName string) {
+func ScrapeInternships(url string, format string, fileName string) error {
 	c := colly.NewCollector()
 
 	// Set up parsing logic
@@ -25,11 +25,9 @@ func ScrapeInternships(url string, format string, fileName string) {
 	// Start scraping the URL
 	err := c.Visit(url)
 	if err != nil {
-		log.Fatalf("Failed to visit %s: %v", url, err)
+		return err // Return the error to the caller
 	}
 
 	// After scraping, save the data
-	if err := SaveData(format, fileName); err != nil {
-		log.Fatalf("Failed to save data: %v", err)
-	}
+	return SaveData(format, fileName)
 }

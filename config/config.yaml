@@ -17,12 +17,18 @@ websites:
 
 # Scraping settings
 scraping:
-  # The frequency of scraping in cron format (e.g., "0 0 * * *" for daily scraping at midnight)
-  schedule: "0 0 * * *"
-  # Number of concurrent scraping tasks
+  # Every 5 minutes
+  schedule: "*/5 * * * *"
+  # Number of concurrent scraping jobs
   concurrency: 5
-  # Timeout in seconds for each scraping task
+  # Timeout in seconds for each request
   timeout: 30
+  # URL to scrape (You might want to remove this if you're using the website list)
+  # url: "https://example.com/internships" # REMOVE THIS LINE
+  # Desired output format
+  format: "csv"
+  # Example filename pattern for output
+  filename_pattern: "internships_%Y%m%d.csv" # Make sure this matches your output logic
 
 # Output settings
 output:

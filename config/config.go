@@ -24,10 +24,15 @@ type WebsiteConfig struct {
 }
 
 // ScrapingConfig holds scraping configuration
+// ScrapingConfig holds scraping configuration
 type ScrapingConfig struct {
 	Schedule    string `yaml:"schedule"`
 	Concurrency int    `yaml:"concurrency"`
 	Timeout     int    `yaml:"timeout"`
+	// Add URL, Format, and FilenamePattern to match your cron.go file usage
+	URL      string `yaml:"url"`              // URL to scrape
+	Format   string `yaml:"format"`           // Output format (e.g., csv, json)
+	FileName string `yaml:"filename_pattern"` // Output filename pattern
 }
 
 // OutputConfig defines the output settings
