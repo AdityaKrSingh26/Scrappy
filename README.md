@@ -50,7 +50,7 @@ Scrappy/
 
 1. **Clone the Repository**: 
    ```
-   git clone <repository_url>
+   git clone https://github.com/AdityaKrSingh26/Scrappy.git
    cd Scrappy
    ```
 
