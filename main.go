@@ -7,6 +7,7 @@ import (
 
 	"github.com/AdityaKrSingh26/Scrappy/core"
 	"github.com/AdityaKrSingh26/Scrappy/internal/platforms/glassdoor"
+	"github.com/AdityaKrSingh26/Scrappy/internal/platforms/linkedin"
 	"github.com/AdityaKrSingh26/Scrappy/internal/platforms/wellfound"
 )
 
@@ -21,7 +22,7 @@ func main() {
 	activeScrapers := []core.Scraper{
 		&wellfound.WellfoundScraper{},
 		&glassdoor.GlassdoorScraper{},
-		// &linkedin.LinkedinScraper{},
+		&linkedin.LinkedinScraper{},
 	}
 
 	var allJobs []core.Job
