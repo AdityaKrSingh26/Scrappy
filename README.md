@@ -4,7 +4,7 @@ A Go-based web scraper that aggregates internship opportunities from multiple jo
 
 ## Features:
 
-- **Multi-platform Support**: Scrape from Wellfound, Glassdoor, and LinkedIn (WIP)
+- **Multi-platform Support**: Scrape from Wellfound, Glassdoor, and LinkedIn
 - **Concurrent Scraping**: Async processing with rate limiting
 - **Output Formats**: JSON & CSV support
 - **Customizable**: Easy to add new platforms
